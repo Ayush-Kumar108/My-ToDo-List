@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%=title%></title>
+
+
+    <!-- Bootstrap -->
+    <!-- using Bootstrap's jquery -->
+    <!-- this app will be completely based on bootstrap front end framework and jqueryui -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+
+
+    <!-- using the jquiry ui for date input using calender -->
+    <!-- jqueryui -->
+    <link href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css'
+        rel='stylesheet'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js">
+    </script>
+
+
+    <!-- using font awesoe for basic icons -->
+    <!-- font awesome -->
+    <script src="https://kit.fontawesome.com/2d9b67a497.js" crossorigin="anonymous"></script>
+
+
+    <!-- this is my own style sheet. instead of completely relying on bootstrap I have added some custom styles on my own too. -->
+    <!-- custom stylesheet -->
+    <link rel="stylesheet" type="text/css" href="./css/to_do_list_style.css">
+
+</head>
+
+
+<!-- Following this the basic body structure:
+The complete body section is divided into 3 parts, from which first one is a form, second one is a section and third one is again a form. -->
+
+<body>
+    <!-- first section, i.e. form, this will be the upper part of the page, which will contain all the description, category button and date input -->
+    <form action="/create-task" method="POST"
+        class="col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3 bg-light opacity-9 pb-0" id="main">
+        <!-- using bootstrap classes -->
+        <section id="title">
+            <!-- title of the page, here we have used locals.title -->
+            <h1 class="text-secondary text-center"><i class="fas fa-pencil-alt" style="color:#ff2a6a"></i>
+                <%=locals.title%></h1>
+        </section>
+
+        <hr class="m-0 bg-warning"><!-- yellow horizontal line -->
+
+        <!-- this section is for description -->
+        <section id="desc">
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Description</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"
+                    placeholder="What do you need to do?" name="Description"></textarea>
+            </div>
+        </section>
+
+        <!-- horizontal line -->
+        <hr class="mt-0 mb-2">
+
+        <!-- this section is for the two input buttons, i.e. for choosing a category and due date -->
+        <section id="two-dropdowns" class="text-center">
+            <!-- category dropdown -->
+            <div class="input-group category-chooser">
+                <select class="custom-select bg-light" id="inputGroupSelect01" name="Category">
+                    <!-- category options -->
+                    <option selected>Choose a Category</option>
+                    <option value="Personal">Personal</option>
+                    <option value="Work">Work</option>
+                    <option value="School">School</option>
+                    <option value="Cleaning">Cleaning</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <!-- verticle line -->
+            <div class="vertical-line"></div>
+            <!-- input for date. It uses JQuery UI -->
+            <input type="text" id="my_date_picker" placeholder="Due Date" name="Due_Date" class="mb-2">
+        </section>
+
+        <!-- horizontal line -->
+        <hr class="mt-0 mb-0">
+    </form>
+    <!-- first section i.e. form completed -->
+
+    <!-- Second section contains the delete and add task buttons -->
+    <section id="task-action"
+        class="text-center col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3 bg-light opacity-9 pb-0">
+        <!-- Add task button -->
+        <button type="submit" form="main" class="btn btn-success btn-lg m-lg-3 m-sm-2 mb-3 mt-3"><i
+                class="fas fa-plus"></i> ADD
+            TASK</button>
+        <!-- this delete task button is a link but designed as a button. -->
+        <a href="" class="btn btn-danger btn-lg m-lg-3 m-sm-2 mb-3 mt-3"><i class="far fa-trash-alt"></i>
+            DELETE
+            TASKS</a>
+    </section>
+
+    <!-- this is the third and last section of our page, it contains all the tasks -->
+    <form id="tasks" method="GET" action=""
+        class="col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3 bg-light opacity-9 pb-0">
+        <!-- here we have used the templating engine. the count i have kept here is for different ids which will be used as ids for the check boxes -->
+        <%let count=0;for (let t of task_list){%>
+        <div class="task pl-2">
+            <!-- horizontal line -->
+            <hr class="mb-3 mt-1">
+            <div class="custom-control custom-checkbox position-relative">
+                <!-- checkbox -->
+                <input type="checkbox" class="custom-control-input" id="<%=t._id%>">
+                <!-- label for the check box is the description provided by the user. if no description is provided bt the user, then "No Description added will be shown" -->
+                <label class="custom-control-label font-weight-bold" for="<%=t._id%>"><%if(t.Description.length==0){%>
+                    <%="No Description Added"%> <%}else{%> <%=t.Description%> <%}%></label>
+                <!-- this is the due date provided by the user, if no due date is provided, then "No deadline will be shown." -->
+                <div class="d-block text-muted"><i class="fas fa-calendar-alt"></i> <%if(t.Due_Date==null){%>
+                    <%="No Deadline"%> <%}else{%> <%=t.Due_Date%> <%}%></div>
+                <!-- this is the category provided by the user, if no category is provided, then nothing will be shown in place of category -->
+                <div class="logo btn position-absolute btn-primary disabled"><%=t.Category%></div>
+        </div>
+        </div>
+        <%count++;}%>
+    </form>
+
+
+
+    <!-- Date picker script from jquery -->
+    <script>
+        $(document).ready(function ()
+        {
+            $(function ()
+            {
+                $("#my_date_picker").datepicker();
+            });
+        }) 
+    </script>
+
+
+    <!-- VANTA JS for the dynamic background -->
+    <script type="text/javascript" src="./js/three.r95.min.js"></script>
+    <script type="text/javascript" src="./js/vanta.rings.min.js"></script>
+    <script>
+        VANTA.RINGS({
+            el: "body",
+            mouseControls: true,
+            touchControls: true,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00
+        })
+    </script>
+
+
+    <!-- custom script -->
+    <script type="text/javascript" src="./js/to_do_list_script.js"></script>
+</body>
+
+</html>

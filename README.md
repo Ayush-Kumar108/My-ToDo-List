@@ -18,7 +18,19 @@ A simple To-Do list Web App.
 5. Responsive App.
 
 # Screenshots
-<img src="images for github/ui1.PNG">
-<img src="images for github/ui2.PNG">
-<img src="images for github/ui3.PNG">
-<img src="images for github/ui4.PNG">
+
+
+![Screenshot (79)](https://github.com/Ayush-Kumar108/My-ToDo-List/assets/117140049/ed74b7b0-be33-4b35-847d-df981e743a2b)
+
+
+
+![Screenshot (80)](https://github.com/Ayush-Kumar108/My-ToDo-List/assets/117140049/6811f2f0-946d-40b6-b25d-d6281d2d0e0d)
+
+
+
+![Screenshot (81)](https://github.com/Ayush-Kumar108/My-ToDo-List/assets/117140049/e43e6727-8d52-4472-9347-1a7cd3de182c)
+
+
+
+
+![Screenshot (82)](https://github.com/Ayush-Kumar108/My-ToDo-List/assets/117140049/95ef05af-bc45-4c42-aed8-8e2e8f53ea31)

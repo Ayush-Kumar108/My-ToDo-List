@@ -1,6 +1,4 @@
-# Dockett
-[![HitCount](http://hits.dwyl.com/parikshit223933/https://githubcom/parikshit223933/Dockett.svg)](http://hits.dwyl.com/parikshit223933/https://githubcom/parikshit223933/Dockett)
-<br>
+
 A simple To-Do list Web App.
 
 # How to Use
